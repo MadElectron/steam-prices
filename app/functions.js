@@ -5,6 +5,7 @@ import {
   getSteamGamePriceOverview
 } from './steamApi.js'
 import { STEAM_COMMISSION_PERCENT, VOLATILITY_PERCENT } from './variables.js'
+import { getPlatiResult } from './platiApi.js'
 
 export const getPrice = async (name) => {
   const game = await searchGame(name)
@@ -36,12 +37,15 @@ export const getPrice = async (name) => {
     steamPriceRUB * (1 + VOLATILITY_PERCENT / 100)
   )
 
+  const platiAvgPrice = await getPlatiResult(title)
+
   return {
     ok: true,
     title,
     id: game.appid,
     steamPriceKZT,
     steamPriceRUB,
-    steamPriceRUBMax
+    steamPriceRUBMax,
+    platiAvgPrice
   }
 }
