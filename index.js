@@ -1,10 +1,15 @@
 import express from 'express'
+import path from 'path'
 import { getPrice } from './app/functions.js'
 
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => res.send("I'm up!"))
+app.use(express.static(path.join(process.env.PWD, 'static')))
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(process.env.PWD, 'static/html/index.html'))
+})
 
 app.get('/price', async (req, res) => {
   const game = req.query.game
