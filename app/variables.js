@@ -1,0 +1,2 @@
+export const STEAM_COMMISSION_PERCENT = 11
+export const VOLATILITY_PERCENT = 10
