@@ -9,6 +9,12 @@ const steam = new SteamApi(process.env.STEAM_API_KEY)
 const searchApi = 'https://steamcommunity.com/actions/SearchApps'
 const currencyApi = 'https://api.steam-currency.ru/currency'
 
+/**
+ * Asynchronously searches for a game by name.
+ *
+ * @param {string} name - The name of the game to search for
+ * @return {Promise<object|null>} The game object if found, or null if not found
+ */
 export const searchGame = async (name) => {
   try {
     const encodedName = new URLSearchParams({ name })
@@ -34,12 +40,26 @@ export const searchGame = async (name) => {
   }
 }
 
+/**
+ * Retrieves the price overview for a Steam game.
+ *
+ * @param {string} id - The ID of the Steam game
+ * @param {string} [currency='kz'] - The currency for the price overview
+ * @return {object | null} The price overview details, or null if not available
+ */
 export const getSteamGamePriceOverview = async (id, currency = 'kz') => {
   const details = await steam.getGameDetails(id, { currency })
 
   return details?.price_overview || null
 }
 
+/**
+ * Asynchronously retrieves the exchange rate from one currency to another.
+ *
+ * @param {string} from - the currency to convert from (default: 'usd')
+ * @param {string} to - the currency to convert to (default: 'kzt')
+ * @return {number | null} the exchange rate from the source currency to the target currency
+ */
 export const getSteamExchangeRateKZT = async (from = 'usd', to = 'kzt') => {
   const key = [from, to].join(':').toUpperCase()
   const result = await axios.get(currencyApi)
