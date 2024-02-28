@@ -11,28 +11,35 @@ const searchApi = 'https://plati.io/api/search.ashx'
 export const getPlatiResult = async (name) => {
   const searchUrl = new URL(searchApi)
   searchUrl.searchParams.set('query', name + ' steam')
+  searchUrl.searchParams.set('pagesize', 500) // Max page size available
   searchUrl.searchParams.set('visibleOnly', 1)
   searchUrl.searchParams.set('response', 'json')
 
   const result = await axios.get(searchUrl.toString())
-  const total = result?.data?.Pagesize
+  const total = result?.data?.items?.length
 
   if (!total) return null
 
   const { items } = result.data
 
   if (items.length === 1)
-    return { minPrice: items[0].price_rur, minPriceItemUrl: items[0].url }
+    return { minPrice: items[0].price_rur, minPriceItemURL: items[0].url }
 
   const minPrice = Math.min(...items.map((item) => item.price_rur))
   const maxPrice = Math.max(...items.map((item) => item.price_rur))
-  const minPriceItemUrl = items.find((item) => item.price_rur === minPrice).url
+  const minPriceItemURL = items.find((item) => item.price_rur === minPrice).url
 
-  if (items.length === 2) return { minPrice, maxPrice, minPriceItemUrl }
+  if (items.length === 2) return { minPrice, maxPrice, minPriceItemURL }
 
   const avgPrice = Math.ceil(
     items.reduce((acc, item) => acc + item.price_rur, 0) / total
   )
 
-  return { avgPrice, minPrice, maxPrice, minPriceItemUrl }
+  return {
+    avgPrice,
+    minPrice,
+    maxPrice,
+    minPriceItemURL,
+    total
+  }
 }

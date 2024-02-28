@@ -8,12 +8,25 @@ const setResult = (data) => {
   result.classList.remove('d-none')
 
   document.getElementById('title').textContent = data.title
-  document.getElementById('appId').textContent = data.id
+  document.getElementById(
+    'appId'
+  ).innerHTML = `<a href="https://store.steampowered.com/app/${data.id}" target="blank">${data.id}</a>`
   document.getElementById('steamKz').textContent = data.steamPriceKZT
   document.getElementById(
     'steamRu'
   ).textContent = `${data.steamPriceRUB} — ${data.steamPriceRUBMax}`
-  document.getElementById('plati').textContent = data.platiAvgPrice
+
+  let platiContent = `<a href="${data.platiMinPriceItemURL}" target="blank">${data.platiMinPrice}</a>`
+
+  if (data.platiAvgPrice) {
+    platiContent += ` &bull; ${data.platiAvgPrice}`
+  }
+
+  if (data.platiMaxPrice) {
+    platiContent += ` &bull; ${data.platiMaxPrice} `
+  }
+
+  document.getElementById('plati').innerHTML = platiContent
 }
 const setError = (data) => {
   spinner.classList.add('d-none')
