@@ -16,23 +16,39 @@ export const getPlatiResult = async (name) => {
   searchUrl.searchParams.set('response', 'json')
 
   const result = await axios.get(searchUrl.toString())
-  const total = result?.data?.items?.length
+  const { items } = result.data
+  const filteredItems = items?.filter((item) =>
+    item.name_eng.toLowerCase().includes('key')
+  )
+
+  const total = filteredItems?.length
 
   if (!total) return null
 
-  const { items } = result.data
+  if (filteredItems.length === 1)
+    return {
+      avgPrice: null,
+      maxPrice: null,
+      minPrice: filteredItems[0].price_rur,
+      minPriceItemURL: filteredItems[0].url
+    }
 
-  if (items.length === 1)
-    return { minPrice: items[0].price_rur, minPriceItemURL: items[0].url }
+  const minPrice = Math.min(...filteredItems.map((item) => item.price_rur))
+  const maxPrice = Math.max(...filteredItems.map((item) => item.price_rur))
+  const minPriceItemURL = filteredItems.find(
+    (item) => item.price_rur === minPrice
+  ).url
 
-  const minPrice = Math.min(...items.map((item) => item.price_rur))
-  const maxPrice = Math.max(...items.map((item) => item.price_rur))
-  const minPriceItemURL = items.find((item) => item.price_rur === minPrice).url
-
-  if (items.length === 2) return { minPrice, maxPrice, minPriceItemURL }
+  if (filteredItems.length === 2)
+    return {
+      avgPrice: null,
+      minPrice,
+      maxPrice,
+      minPriceItemURL
+    }
 
   const avgPrice = Math.ceil(
-    items.reduce((acc, item) => acc + item.price_rur, 0) / total
+    filteredItems.reduce((acc, item) => acc + item.price_rur, 0) / total
   )
 
   return {

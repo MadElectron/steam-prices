@@ -46,19 +46,26 @@ export const getPrice = async (name, lang = 'ru') => {
     steamPriceRUB * (1 + VOLATILITY_PERCENT / 100)
   )
 
-  const { avgPrice, minPrice, maxPrice, minPriceItemURL } =
-    await getPlatiResult(title)
+  try {
+    const { avgPrice, minPrice, maxPrice, minPriceItemURL } =
+      await getPlatiResult(title)
 
-  return {
-    ok: true,
-    title,
-    id: game.appid,
-    steamPriceKZT,
-    steamPriceRUB,
-    steamPriceRUBMax,
-    platiAvgPrice: avgPrice,
-    platiMinPrice: minPrice,
-    platiMaxPrice: maxPrice,
-    platiMinPriceItemURL: minPriceItemURL
+    return {
+      ok: true,
+      title,
+      id: game.appid,
+      steamPriceKZT,
+      steamPriceRUB,
+      steamPriceRUBMax,
+      platiAvgPrice: avgPrice,
+      platiMinPrice: minPrice,
+      platiMaxPrice: maxPrice,
+      platiMinPriceItemURL: minPriceItemURL
+    }
+  } catch (error) {
+    return {
+      ok: false,
+      error: `Internal server error: ${error.message}`
+    }
   }
 }
