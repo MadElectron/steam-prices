@@ -46,15 +46,20 @@ export const getPrice = async (name, lang = 'ru') => {
     steamPriceRUB * (1 + VOLATILITY_PERCENT / 100)
   )
 
-  const platiAvgPrice = await getPlatiResult(title)
+  const { avgPrice, minPrice, maxPrice, minPriceItemUrl } =
+    await getPlatiResult(title)
 
   return {
     ok: true,
     title,
     id: game.appid,
+    steamURL: `https://store.steampowered.com/app/${game.appid}`,
     steamPriceKZT,
     steamPriceRUB,
     steamPriceRUBMax,
-    platiAvgPrice
+    platiAvgPrice: avgPrice,
+    platiMinPrice: minPrice,
+    platiMaxPrice: maxPrice,
+    platiMinPriceItemUrl: minPriceItemUrl
   }
 }
