@@ -11,6 +11,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(process.env.PWD, 'static/html/index.html'))
 })
 
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(process.env.PWD, 'static/html/readme.html'))
+})
+
 app.get('/price', async (req, res) => {
   const game = req.query.game
   try {
