@@ -14,7 +14,7 @@ const setResult = (data) => {
   document.getElementById('steamKz').textContent = data.steamPriceKZT
   document.getElementById(
     'steamRu'
-  ).textContent = `${data.steamPriceRUB} — ${data.steamPriceRUBMax}`
+  ).textContent = `~${data.steamPriceRUB}—${data.steamPriceRUBMax}`
 
   if (data.platiMinPriceItemURL === null) {
     document.getElementById('plati').textContent = '—'
@@ -31,6 +31,8 @@ const setResult = (data) => {
 
     document.getElementById('plati').innerHTML = platiContent
   }
+
+  document.getElementById('kupikod').textContent = data.kupikodPrice || '—'
 }
 const setError = (data) => {
   spinner.classList.add('d-none')

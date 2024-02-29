@@ -10,6 +10,7 @@ import {
   VOLATILITY_PERCENT
 } from './variables.js'
 import { getPlatiResult } from './platiApi.js'
+import { getKupikodRate } from './kupikodApi.js'
 
 /**
  * Asynchronously fetches the price and related information for a game.
@@ -46,6 +47,8 @@ export const getPrice = async (name, lang = 'ru') => {
     steamPriceRUB * (1 + VOLATILITY_PERCENT / 100)
   )
 
+  const kupikodPrice = await getKupikodRate(steamPriceKZT)
+
   try {
     const { avgPrice, minPrice, maxPrice, minPriceItemURL } =
       await getPlatiResult(title)
@@ -60,7 +63,8 @@ export const getPrice = async (name, lang = 'ru') => {
       platiAvgPrice: avgPrice,
       platiMinPrice: minPrice,
       platiMaxPrice: maxPrice,
-      platiMinPriceItemURL: minPriceItemURL
+      platiMinPriceItemURL: minPriceItemURL,
+      kupikodPrice
     }
   } catch (error) {
     return {
