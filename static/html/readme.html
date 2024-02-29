@@ -4,28 +4,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../css/style.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <title>Steam/Plati prices: About</title>
+    <title>Steam/Plati prices</title>
   </head>
   <body>
-    <div id="readme-body" class="container p-3">
-      <p>A simple NodeJS project showing Steam game prices:</p>
+    <div class="container p-3 pb-0">
+      <header class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <a href="/" class="pe-3">
+            <img src="../steam-plati.svg" alt="Logo" class="logo" />
+          </a>
+          <h1 class="title">Steam/Plati prices</h1>
+        </div>
+        <a href="/">Home</a>
+      </header>
+    </div>
+
+    <div class="container p-3">
+      <div class="markdown-heading mb-3">
+        <h3 class="heading-element">About</h3>
+        <a
+          id="user-content-steam-prices"
+          class="anchor-element"
+          aria-label="Permalink: steam-prices"
+          href="#steam-prices"
+        >
+          <span aria-hidden="true" class="octicon octicon-link"></span>
+        </a>
+      </div>
+      <p>
+        <strong>Steam/Plati Prices</strong> is a simple NodeJS project showing
+        Steam game prices:
+      </p>
       <ul>
         <li>
           on Steam KZ, calculated in RUB for Wallet replenishment via
-          third-party services, roughly approximated
+          third-party services, roughly approximated;
         </li>
-        <li>on Plati.market</li>
+        <li>on Plati.Market.</li>
       </ul>
       <p>
         Price formulae for Steam KZ is
@@ -52,7 +85,7 @@
             href="https://api.steam-currency.ru/currency/USD:KZT"
             rel="nofollow"
             >Steam Currency API</a
-          >, shows as interal from x1 to x1.1 price;
+          >, shown as interval from x1 to x1.1 price;
         </li>
         <li>
           <code>USD2RUBRate</code> – Central Bank of Russia exhange rate, US
@@ -63,7 +96,7 @@
         </li>
       </ul>
       <p>
-        Plati.Market price fetched from
+        Plati.Market prices (average, min and max) are fetched from
         <a href="https://plati.market/api/" rel="nofollow">Plati.Market API</a>.
       </p>
     </div>

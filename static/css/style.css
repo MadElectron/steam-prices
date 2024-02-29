@@ -1,0 +1,18 @@
+header {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+header .title {
+  font-weight: 600;
+}
+
+header a {
+  font-weight: 600;
+  color: black;
+}
+
+.logo {
+  height: 2em;
+}
