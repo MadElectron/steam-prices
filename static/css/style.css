@@ -16,3 +16,12 @@ header a {
 .logo {
   height: 2em;
 }
+
+@media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+  /* Styles for iPhone 13 */
+
+  .title {
+    font-size: 1.325rem;
+    margin-bottom: 0.15em;
+  }
+}
