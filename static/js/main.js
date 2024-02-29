@@ -16,17 +16,21 @@ const setResult = (data) => {
     'steamRu'
   ).textContent = `${data.steamPriceRUB} — ${data.steamPriceRUBMax}`
 
-  let platiContent = `<a href="${data.platiMinPriceItemURL}" target="blank">${data.platiMinPrice}</a>`
+  if (data.platiMinPriceItemURL === null) {
+    document.getElementById('plati').textContent = '—'
+  } else {
+    let platiContent = `<a href="${data.platiMinPriceItemURL}" target="blank">${data.platiMinPrice}</a>`
 
-  if (data.platiAvgPrice) {
-    platiContent += ` &bull; ${data.platiAvgPrice}`
+    if (data.platiAvgPrice) {
+      platiContent += ` &bull; ${data.platiAvgPrice}`
+    }
+
+    if (data.platiMaxPrice) {
+      platiContent += ` &bull; ${data.platiMaxPrice} `
+    }
+
+    document.getElementById('plati').innerHTML = platiContent
   }
-
-  if (data.platiMaxPrice) {
-    platiContent += ` &bull; ${data.platiMaxPrice} `
-  }
-
-  document.getElementById('plati').innerHTML = platiContent
 }
 const setError = (data) => {
   spinner.classList.add('d-none')
